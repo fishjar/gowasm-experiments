@@ -26,7 +26,7 @@ Serve with caddy or anything else that is able to set the mimetype
 ## geek
 
 ```sh
-cp $(go env GOROOT)/misc/wasm/wasm_exec.js ./geek
+cp $(go env GOROOT)/misc/wasm/wasm_exec.js ./static
 
 GOOS=js GOARCH=wasm go build -o geek/main.wasm ./geek
 GOOS=js GOARCH=wasm go build -o geek2/main.wasm ./geek2
