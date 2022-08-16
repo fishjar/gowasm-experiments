@@ -22,3 +22,16 @@ $ go run ../serve.go
 
 Serve with caddy or anything else that is able to set the mimetype
 'application/wasm' for .wasm files
+
+## geek
+
+```sh
+cp $(go env GOROOT)/misc/wasm/wasm_exec.js ./geek
+
+GOOS=js GOARCH=wasm go build -o geek/main.wasm ./geek
+GOOS=js GOARCH=wasm go build -o geek2/main.wasm ./geek2
+GOOS=js GOARCH=wasm go build -o geek3/main.wasm ./geek3
+GOOS=js GOARCH=wasm go build -o geek4/main.wasm ./geek4
+
+go run serve.go
+```
