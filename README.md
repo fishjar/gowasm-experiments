@@ -35,3 +35,30 @@ GOOS=js GOARCH=wasm go build -o geek4/main.wasm ./geek4
 
 go run serve.go
 ```
+
+## hello
+
+```sh
+export PATH="$PATH:$(go env GOROOT)/misc/wasm"
+GOOS=js GOARCH=wasm go run ./hello
+
+# or
+GOOS=js GOARCH=wasm go run -exec="$(go env GOROOT)/misc/wasm/go_js_wasm_exec" ./hello
+
+# or
+GOOS=js GOARCH=wasm go build -o ./hello/main.wasm ./hello
+$(go env GOROOT)/misc/wasm/go_js_wasm_exec ./hello/main.wasm
+```
+
+## emcc
+
+```sh
+git clone https://github.com/juj/emsdk.git
+cd emsdk
+./emsdk install latest
+./emsdk activate latest
+source "./emsdk_env.sh"
+echo './emsdk_env.sh"' >> $HOME/.bash_profile
+
+emcc hello.c -s WASM=1 -o hello.html
+```
