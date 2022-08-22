@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="./wasm_exec.js"></script>
+    <script type="module">
+      function fibonacciInJs(n) {
+        if (n <= 1) return n;
+        return fibonacciInJs(n - 1) + fibonacciInJs(n - 2);
+      }
+
+      async function run() {
+        const go = new Go();
+        const result = await WebAssembly.instantiateStreaming(
+          fetch("main.wasm"),
+          go.importObject
+        );
+        go.run(result.instance);
+
+        const num = 20;
+
+        console.time("Fibonnaci in go");
+        const fibGo = fibFunc(num);
+        console.timeEnd("Fibonnaci in go");
+
+        console.time("Fibonnaci in JS");
+        const fibJS = fibonacciInJs(num);
+        console.timeEnd("Fibonnaci in JS");
+
+        document.body.textContent = `Fib ${num}: Go ${fibGo} - JS ${fibJS}`;
+      }
+
+      run();
+    </script>
+  </head>
+  <body></body>
+</html>
